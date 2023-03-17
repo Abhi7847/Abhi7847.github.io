@@ -108,3 +108,64 @@
 })(jQuery);
 
 
+// function clearInputs() {
+//     document.getElementById("name").value = "";
+//     document.getElementById("phone").value = "";
+//     document.getElementById("vehiclenumber").value = "";
+//     document.getElementById("appartmentname").value = "";
+//   }
+
+const submitBtn = document.getElementById('submitBtn');
+const form = document.querySelector('form');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const nameInput = document.getElementById('name');
+  const phoneInput = document.getElementById('phone');
+  const name = nameInput.value.trim();
+  const phone = phoneInput.value.trim();
+
+  if (name === '' || phone.length !== 10) {
+    alert('Please enter a valid name and phone number.');
+    return;
+  }
+
+  // Make AJAX POST request to server-side script
+  const xhr = new XMLHttpRequest();
+  const url = 'https://script.google.com/macros/s/AKfycbxncICwBbBxYVMLX21WVQqUHQDJ7191m8vX7tnVxWBZbm8T-9ipIM65XPnj70LVaM-J/exec';
+  const formData = new FormData(document.querySelector('form'));
+
+  xhr.open('POST', url);
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      // Redirect to the desired website
+      window.location.href = 'https://abhi7847.github.io/WashWizard/';
+      // Reset all form inputs
+      document.querySelectorAll('input').forEach(input => {
+        input.value = '';
+      });
+      clearInputs();
+    } else {
+      console.error('Error:', xhr.statusText);
+    }
+  };
+  xhr.send(formData);
+
+  // Clear form inputs
+  clearInputs();
+});
+
+function clearInputs() {
+  document.getElementById('name').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('vehiclenumber').value = '';
+  document.getElementById('appartmentname').value = '';
+  window.location.href = 'https://abhi7847.github.io/WashWizard/';
+}
+
+
+function showAlert() {
+    window.location.href = 'https://abhi7847.github.io/WashWizard/';
+  }
+  
+
